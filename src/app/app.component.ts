@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'event-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'events-app';
+  title: string = 'Angular Events';
 }
