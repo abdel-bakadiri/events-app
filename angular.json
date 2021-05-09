@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "events-app"
+    }
+  },
+  "defaultProject": "events-app",
+  "cli": {
+    "analytics": "45bd8162-7046-44a3-8b28-d32043539379"
+  }
 }
