@@ -1,4 +1,4 @@
-export interface EventAngular {
+export interface EventIt {
   id: number;
   name: string;
   code: string;

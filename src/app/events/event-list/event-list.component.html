@@ -6,43 +6,84 @@
     <div class="row">
       <div class="col-md-2">Filter by:</div>
       <div class="col-md-4">
-        <input type="text" />
+        <input type="text" [(ngModel)]="filteredByName" />
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h4>Filtered by:</h4>
+        <h4>Filtered by: {{ filteredByName }}</h4>
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table" *ngIf="events.length">
+      <table class="table" *ngIf="filteredEvents.length">
         <thead>
           <tr>
-            <th>Logo</th>
+            <th>
+              <button (click)="toggleImage()" class="btn btn-primary">
+                {{ showImage ? "Hide" : "show" }} logo
+              </button>
+            </th>
             <th>Event</th>
             <th>Code</th>
             <th>Date</th>
             <th>Price</th>
-            <th>5 Star Rating</th>
+            <th>Appreciation</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let event of events">
+          <tr *ngFor="let event of filteredEvents">
             <td>
               <img
+                *ngIf="showImage"
                 [src]="event.imageUrl"
-                [style.width.px]="100"
-                [style.height.px]="100"
+                [style.width.px]="widthImage"
+                [style.height.px]="heightImage"
+                [style.margin.px]="marginImage"
               />
             </td>
-            <td>{{ event.name }}</td>
-            <td>{{ event.code }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.price }}</td>
-            <td>{{ event.rating }}</td>
+            <td>{{ event?.name }}</td>
+            <td>{{ event?.code | uppercase | spaceToDash }}</td>
+            <td>{{ event?.date }}</td>
+            <td>{{ event?.price | currency: "EUR":true:"2.2-2" }}</td>
+            <td>
+              <event-star
+                [starsRating]="event.rating"
+                (getRatingStars)="onGetRatingStars($event)"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              ></event-star>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Based in the evaluation showed by the participants, this event has a
+        rating evaluation: {{ theRatingStars }}
+      </div>
     </div>
   </div>
 </div>
