@@ -8,3 +8,6 @@ button:active,
 button:focus {
   background-color: #b0c4de;
 }
+.table-responsive {
+  margin-top: 10px;
+}

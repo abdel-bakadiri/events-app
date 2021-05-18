@@ -16,6 +16,7 @@ export class EventListComponent implements OnInit {
   marginImage = 2;
   showImage = true;
   theRatingStars: number;
+  errorMessage: string;
   private _filteredByName = '';
   public get filteredByName() {
     return this._filteredByName;
@@ -33,13 +34,15 @@ export class EventListComponent implements OnInit {
   constructor(private listEventsService: ListEventsService) {}
 
   ngOnInit(): void {
-    this.events = this.listEventsService.getEvents();
-    this.filteredEvents = this.events;
-    const numbers$ = range(0, 10).pipe(
-      map((num) => num * 3),
-      filter((x) => x % 2 == 0)
-    );
-    numbers$.subscribe((num) => console.log(num));
+    this.listEventsService.getEvents().subscribe({
+      next: (eventsIt) => {
+        this.events = eventsIt;
+        this.filteredEvents = this.events;
+      },
+      error: (errMessage) => {
+        this.errorMessage = errMessage;
+      },
+    });
   }
   toggleImage(): void {
     this.showImage = !this.showImage;
