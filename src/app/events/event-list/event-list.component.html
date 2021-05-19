@@ -43,7 +43,7 @@
             </td>
             <td>{{ event?.code | uppercase | spaceToDash }}</td>
             <td>{{ event?.date }}</td>
-            <td>{{ event?.price | currency: "EUR":true:"2.2-2" }}</td>
+            <td>{{ event?.price | currency: "EUR":"symbol":"2.2-2" }}</td>
             <td>
               <event-star
                 [starsRating]="event.rating"
